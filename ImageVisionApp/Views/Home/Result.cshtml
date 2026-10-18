@@ -1,0 +1,60 @@
+@model ImageResultViewModel
+
+<div class="intro reveal">
+    <p class="intro-eyebrow">Inference Complete</p>
+    <h1 class="intro-title">Here's what the AI found.</h1>
+</div>
+
+<div class="result-grid reveal-up delay-1">
+    <div class="contact-frame tilt-3d">
+        @if (Model.Analysis.FromCache)
+        {
+            <div class="meter-tag frame-tag"><span class="status-dot wine"></span> Pulled from the archive</div>
+        }
+        <div class="frame-image-wrap">
+            <img src="@Model.Analysis.ImageUrl" alt="Your analyzed photo" class="frame-image" />
+            <div class="bbox">
+                <span class="bbox-label">@(Model.Analysis.Tags.Any() ? Model.Analysis.Tags.First() : "subject") · @Model.Analysis.ConfidenceScore.ToString("P0")</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="spec-panel">
+        <span class="spec-label">AI Description</span>
+
+        <p class="frame-caption">&ldquo;@Model.Analysis.Description&rdquo;</p>
+
+        <div class="meter-row">
+            <div class="meter-head">
+                <span class="spec-label">How confident is the AI?</span>
+                <span class="meter-value">@Model.Analysis.ConfidenceScore.ToString("P0")</span>
+            </div>
+            <div class="meter-track">
+                @{
+                    var barWidth = $"width: {(Model.Analysis.ConfidenceScore * 100).ToString("0")}%";
+                }
+                <div class="meter-fill" style="@barWidth"></div>
+            </div>
+        </div>
+
+        @if (Model.Analysis.Tags.Any())
+        {
+            <div class="meter-row">
+                <span class="spec-label">Keywords Identified</span>
+                <ul class="tag-row">
+                    @foreach (var tag in Model.Analysis.Tags)
+                    {
+                        <li class="tag-chip">@tag</li>
+                    }
+                </ul>
+            </div>
+        }
+
+        <div class="result-actions">
+            <a asp-controller="Home" asp-action="Index" class="btn-shutter">
+                <span class="btn-text">Analyze Another Photo</span>
+            </a>
+            <a asp-controller="Home" asp-action="History" class="text-link">Go to History</a>
+        </div>
+    </div>
+</div>

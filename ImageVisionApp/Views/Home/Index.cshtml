@@ -1,0 +1,103 @@
+@model ImageUploadViewModel
+
+<div class="intro reveal">
+    <p class="intro-eyebrow">New Analysis</p>
+    <h1 class="intro-title">Load a photo into the gate.</h1>
+    <p class="intro-desc">Drop a picture below and the AI reads it: a plain-English description, a set of keywords, and how confident it is in what it sees.</p>
+</div>
+
+<div class="film-gate reveal-up" id="viewfinder">
+    <div class="gate-inner" id="viewfinderInner">
+        <label for="ImageFile" class="gate-slot" id="dropZone">
+            <span class="gate-icon" style="display: block;">
+                <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+            </span>
+            <span class="gate-primary" id="dropLabel">Click to browse or drag a photo here</span>
+            <span class="gate-secondary" style="display: block;">JPEG · PNG · WEBP — up to 4MB</span>
+        </label>
+    </div>
+</div>
+
+<form asp-controller="Home" asp-action="Upload" method="post" enctype="multipart/form-data" class="load-form reveal-up delay-1" id="uploadForm">
+    @Html.AntiForgeryToken()
+    <input type="file" name="ImageFile" id="ImageFile" accept="image/*" required class="hidden-file-input" />
+
+    <div class="status-rail">
+        <div class="status-info">
+            <span class="status-dot"></span>
+            <span class="status-text" id="filenameReadout">Waiting for your photo&hellip;</span>
+        </div>
+        <button type="submit" class="btn-shutter" id="submitBtn" disabled>
+            <span class="btn-text">Analyze Photo</span>
+        </button>
+    </div>
+
+    <div asp-validation-summary="All" class="error-message"></div>
+</form>
+
+<script>
+    (function () {
+        var viewfinder = document.getElementById('viewfinder');
+        var inner = document.getElementById('viewfinderInner');
+        var dropZone = document.getElementById('dropZone');
+        var input = document.getElementById('ImageFile');
+        var form = document.getElementById('uploadForm');
+        var submitBtn = document.getElementById('submitBtn');
+        var filenameReadout = document.getElementById('filenameReadout');
+        var dropLabel = document.getElementById('dropLabel');
+
+        function showPreview(file) {
+            if (!file) return;
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                inner.querySelectorAll('.preview-frame').forEach(function (img) { img.remove(); });
+                var img = document.createElement('img');
+                img.src = e.target.result;
+                img.alt = 'Your selected photo';
+                img.className = 'preview-frame reveal';
+                inner.insertBefore(img, dropZone);
+                dropZone.style.display = 'none';
+                viewfinder.classList.add('has-image');
+            };
+            reader.readAsDataURL(file);
+            filenameReadout.textContent = "Ready to analyze: " + file.name;
+            submitBtn.disabled = false;
+        }
+
+        input.addEventListener('change', function () { showPreview(input.files[0]); });
+
+        ['dragover', 'dragenter'].forEach(function (evt) {
+            viewfinder.addEventListener(evt, function (e) {
+                e.preventDefault();
+                viewfinder.classList.add('is-dragging');
+                dropLabel.textContent = 'Drop it now!';
+            });
+        });
+
+        ['dragleave', 'drop'].forEach(function (evt) {
+            viewfinder.addEventListener(evt, function (e) {
+                e.preventDefault();
+                viewfinder.classList.remove('is-dragging');
+                dropLabel.textContent = 'Click to browse or drag a photo here';
+            });
+        });
+
+        viewfinder.addEventListener('drop', function (e) {
+            var file = e.dataTransfer.files[0];
+            if (file) {
+                input.files = e.dataTransfer.files;
+                showPreview(file);
+            }
+        });
+
+        form.addEventListener('submit', function () {
+            submitBtn.disabled = true;
+            submitBtn.querySelector('.btn-text').textContent = 'Analyzing...';
+            viewfinder.classList.add('is-processing');
+        });
+    })();
+</script>

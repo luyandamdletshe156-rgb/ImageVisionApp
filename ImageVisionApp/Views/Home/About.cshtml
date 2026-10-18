@@ -1,0 +1,26 @@
+<div class="intro reveal">
+    <p class="intro-eyebrow">System Architecture</p>
+    <h1 class="intro-title">How the lab works.</h1>
+</div>
+
+<div class="doc-grid reveal-up delay-1">
+    <section class="doc-card">
+        <h2 class="doc-title">Data pipeline</h2>
+        <p class="doc-text">Every photo you upload goes straight to Azure Blob Storage, which acts as the darkroom's negative archive. The Azure Computer Vision API then develops it, returning a description, a set of tags, and a confidence score.</p>
+    </section>
+
+    <section class="doc-card">
+        <h2 class="doc-title">Smart memory</h2>
+        <p class="doc-text">Each photo is fingerprinted with a content hash the moment it's uploaded. Upload the exact same picture again and the app recognizes the fingerprint and hands back the earlier result instantly, skipping the API call entirely.</p>
+    </section>
+
+    <section class="doc-card">
+        <h2 class="doc-title">Built with</h2>
+        <ul class="doc-list">
+            <li>ASP.NET Core MVC</li>
+            <li>Azure Blob Storage</li>
+            <li>Azure Computer Vision (v3.2 REST endpoint)</li>
+            <li>Custom "contact sheet" CSS theme</li>
+        </ul>
+    </section>
+</div>

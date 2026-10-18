@@ -1,0 +1,27 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageVisionApp", "ImageVisionApp\ImageVisionApp.csproj", "{DA1AFF32-8C9C-4CA4-9748-B6A17B4C0C0D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageVisionApp.Tests", "ImageVisionApp.Tests\ImageVisionApp.Tests.csproj", "{8BEFBDBB-C2D7-4748-BA05-FA3D13D715CB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA1AFF32-8C9C-4CA4-9748-B6A17B4C0C0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA1AFF32-8C9C-4CA4-9748-B6A17B4C0C0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA1AFF32-8C9C-4CA4-9748-B6A17B4C0C0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA1AFF32-8C9C-4CA4-9748-B6A17B4C0C0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BEFBDBB-C2D7-4748-BA05-FA3D13D715CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BEFBDBB-C2D7-4748-BA05-FA3D13D715CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BEFBDBB-C2D7-4748-BA05-FA3D13D715CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BEFBDBB-C2D7-4748-BA05-FA3D13D715CB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>98f75c05-fd51-431f-8cd3-fec6ff681989</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Azure Blob Storage -->
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.22.2" />
+
+    <!-- Computer Vision is called via plain HttpClient against the v3.2 REST
+         API (see VisionService) — no SDK package needed, and v3.2 works in
+         every Azure Vision region including ones the 4.0 SDK's Caption
+         feature doesn't support. -->
+
+    <!-- In-memory caching (built into ASP.NET Core, listed for clarity) -->
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="8.0.1" />
+  </ItemGroup>
+
+</Project>
